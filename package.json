@@ -3,9 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.4.0",
+    "dotenv": "^6.1.0",
+    "material-design-icons": "^3.0.1",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "react-scripts": "2.1.1"
+    "react-icons": "^3.2.2",
+    "react-responsive-modal": "^3.5.0",
+    "react-scripts": "2.1.1",
+    "styled-components": "^4.0.3",
+    "tsc-watch": "^1.0.30",
+    "typeface-roboto": "^0.0.54",
+    "typescript": "^3.1.6",
+    "yarn": "^1.12.1"
   },
   "scripts": {
     "start": "react-scripts start",
