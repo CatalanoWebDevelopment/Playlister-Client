@@ -45,9 +45,38 @@ const styles = theme => ({
   },
 });
 
-function SignIn(props) {
-  const { classes } = props;
 
+
+class SignIn extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    onSubmitLogin = event => {
+        event.preventDefault();
+        let password = document.getElementById("password").value
+        let name = document.getElementById("accountName").value
+        let accountData = { name, password }
+    
+        fetch('http://localhost:3000/account/register', {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(accountData)
+        })
+        .then(response => response.json())
+        .then(response => {
+            let token = response.sessionToken
+            localStorage.setItem('SessionToken', token)
+            if (token !== undefined ) {
+                this.props.renderRoutes();
+            }
+        })
+    };
+  
+    render() {
+        const { classes } = this.props;
   return (
     <React.Fragment>
       <CssBaseline />
@@ -59,10 +88,10 @@ function SignIn(props) {
           <Typography component="h1" variant="h5">
             Account Sign-In
           </Typography>
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={this.onSubmitLogin}>
             <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
+              <InputLabel htmlFor="accountName">Account name</InputLabel>
+              <Input id="accountName" name="accountName" autoComplete="accountName" autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
@@ -91,6 +120,7 @@ function SignIn(props) {
       </main>
     </React.Fragment>
   );
+}
 }
 
 SignIn.propTypes = {

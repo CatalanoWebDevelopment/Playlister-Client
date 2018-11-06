@@ -88,7 +88,7 @@ class Sidebar extends Component {
 
           {value === "account" && (
             <TabContainer>
-              <Link to="/"><AccountRegistration /></Link>
+              <Link to="/"><AccountRegistration renderRoutes={this.renderNavOnLogin}/></Link>
             </TabContainer>
           )}
           {value === "user" && (
