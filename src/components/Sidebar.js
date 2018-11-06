@@ -77,18 +77,26 @@ class Sidebar extends Component {
     const { value } = this.state.value;
 
     return (
-      <Grid item xs={12}>
-        <AppBar>
-          <Tabs value={value} onChange={this.handleNavChange}>
-            <Tab value="account" label="Home" />
-          </Tabs>
-        </AppBar>
+      <Grid container spacing={24}>
+        <Grid item xs={12}>
+          <AppBar>
+            <Tabs value={value} onChange={this.handleNavChange}>
+              <Tab value="account" label="Home" />
+            </Tabs>
+          </AppBar>
 
-        {value === "account" && (
-          <TabContainer>
-            <AccountRegistration />
-          </TabContainer>
-        )}
+          {value === "account" && (
+            <TabContainer>
+              <AccountRegistration />
+            </TabContainer>
+          )}
+        </Grid>
+
+        <Grid item xs={12}>
+          <Switch>
+            <Route exact path="/"><AccountRegistration renderRoutes={this.renderNavOnLogin}/></Route>
+          </Switch>
+        </Grid>
       </Grid>
     );
   }

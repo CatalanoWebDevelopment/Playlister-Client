@@ -1,4 +1,4 @@
 module.exports = {
-	parser: "javascript",
+	parser: "typescript",
 	useTabs: true
 };
