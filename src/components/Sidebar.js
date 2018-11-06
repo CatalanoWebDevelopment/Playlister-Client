@@ -1,4 +1,4 @@
-import React, { Component, ReactFragment } from "react";
+import React, { Component } from "react";
 import AccountRegistration from "../pages/Account/accountRegistration";
 import UserRegistration from "../pages/User/userRegistration";
 import AppBar from "@material-ui/core/AppBar";
@@ -21,7 +21,7 @@ function TabContainer(props) {
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backGroundColor: theme.palette.primary.main
+    backGroundColor: theme.palette.secondary.tertiary
   }
 });
 
@@ -82,19 +82,27 @@ class Sidebar extends Component {
           <AppBar>
             <Tabs value={value} onChange={this.handleNavChange}>
               <Tab value="account" label="Home" />
+              <Tab value="user" label="User Profiles" />
             </Tabs>
           </AppBar>
 
           {value === "account" && (
             <TabContainer>
-              <AccountRegistration />
+              <Link to="/"><AccountRegistration /></Link>
             </TabContainer>
           )}
+          {value === "user" && (
+            <TabContainer>
+              <UserRegistration renderRoutes={this.renderNavOnLogin} />
+            </TabContainer>
+          )}
+
         </Grid>
 
         <Grid item xs={12}>
           <Switch>
             <Route exact path="/"><AccountRegistration renderRoutes={this.renderNavOnLogin}/></Route>
+            <Route exact path="/user"><UserRegistration renderRoutes={this.renderNavOnLogin} /></Route>
           </Switch>
         </Grid>
       </Grid>

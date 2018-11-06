@@ -34,7 +34,7 @@ const styles = theme => ({
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.dark,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -57,7 +57,7 @@ function SignIn(props) {
             <LockIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Account Sign-In
           </Typography>
           <form className={classes.form}>
             <FormControl margin="normal" required fullWidth>
