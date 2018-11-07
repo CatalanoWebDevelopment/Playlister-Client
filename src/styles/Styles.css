@@ -18,7 +18,7 @@ html {
 .backgroundPic {
     background: url(images/PlaylisterBackground.jpg) no-repeat center center fixed;
     background-size: cover;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
 }
 

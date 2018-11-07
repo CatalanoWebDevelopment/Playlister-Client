@@ -6,10 +6,9 @@ import Grid from "@material-ui/core/Grid";
 import { Route, Link, Switch } from "react-router-dom";
 import theme from "../styles/Theme";
 import { withStyles, AppBar, Tabs } from "@material-ui/core";
-import classNames from "classnames"
 import PropTypes from "prop-types"
 import styled from "styled-components"
-import Styles from "../styles/Styles.css"
+import "../styles/Styles.css"
 
 const styles = theme => ({
   root: {
@@ -29,14 +28,14 @@ class Sidebar extends Component {
     super(props);
 
     this.state = {
-      showNavigation: false,
+      showNavigation: false
     };
   }
 
   logout = () => {
     localStorage.clear();
     this.setState({
-      showNavigation: false
+      showNavigation: false,
     });
   };
 
@@ -88,7 +87,7 @@ class Sidebar extends Component {
 
         <Grid item xs={12}>
           <Switch>
-            <Route exact path="/"><AccountHome renderRoutes={this.renderNavOnLogin}/></Route>
+            <Route exact path="/"><AccountHome renderRoutes={this.renderNavOnLogin} /></Route>
             <Route exact path="/user"><UserHome renderRoutes={this.renderNavOnLogin} /></Route>
           </Switch>
         </Grid>

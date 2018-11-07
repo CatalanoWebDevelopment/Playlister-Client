@@ -11,7 +11,8 @@ export default class AccountHome extends Component {
 
         this.state = {
             isLoginOpen: true,
-            isRegisterOpen: false
+            isRegisterOpen: false,
+            isManagementOpen: false
         }
     }
 
@@ -30,28 +31,22 @@ export default class AccountHome extends Component {
     }
 
     renderAccountManagement = () => {
-        if (localStorage.getItem('SessionToken') !== undefined) {
-            return (
-                <React.Fragment>
-                    <Management />
-                </React.Fragment>
-            )
-        }
-
-        return
-    }
-
-    componentDidMount() {
-        this.renderAccountManagement()
+        this.setState({
+            isLoginOpen: false,
+            isRegisterOpen: false,
+            isManagementOpen: true
+        })
     }
 
     render() {
         return(
             <Grid container spacing={8}>
                 <Grid item xs={12}>
-                    {this.state.isLoginOpen === true && <Login renderRoutes={this.props.renderRoutes} renderRegister={this.renderRegister} />}
+                    {this.state.isLoginOpen === true && <Login renderRoutes={this.props.renderRoutes} renderRegister={this.renderRegister} renderAccountManagement={this.renderAccountManagement} />}
 
-                    {this.state.isRegisterOpen === true && <Register renderRoutes={this.props.renderRoutes} renderLogin={this.renderLogin} />}
+                    {this.state.isRegisterOpen === true && <Register renderRoutes={this.props.renderRoutes} renderLogin={this.renderLogin} renderAccountManagement={this.renderAccountManagement} />}
+
+                    {this.state.isManagementOpen === true && <Management />}
                 </Grid>
             </Grid>
         )
