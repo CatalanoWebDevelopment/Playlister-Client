@@ -1,29 +1,28 @@
 import React, { Component } from "react";
 import AccountRegistration from "../pages/Account/accountRegistration";
 import UserRegistration from "../pages/User/userRegistration";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { Route, Link, Switch } from "react-router-dom";
 import theme from "../styles/Theme";
-import { withStyles } from "@material-ui/core";
-
-function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
-}
+import { withStyles, AppBar, Tabs } from "@material-ui/core";
+import classNames from "classnames"
+import PropTypes from "prop-types"
+import styled from "styled-components"
+import Styles from "../styles/Styles.css"
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backGroundColor: theme.palette.secondary.tertiary
+    backGroundColor: theme.palette.secondary.dark
   }
 });
+
+const ListItem = styled.li`
+  text-align: center;
+  color: black;
+  list-style: none;
+`
 
 class Sidebar extends Component {
   constructor(props) {
@@ -31,7 +30,6 @@ class Sidebar extends Component {
 
     this.state = {
       showNavigation: false,
-      value: ""
     };
   }
 
@@ -64,39 +62,21 @@ class Sidebar extends Component {
     }
   }
 
-  handleNavChange = (event, value) => {
-    this.setState({ value });
-  };
-
   componentDidMount() {
     this.renderNavOnLogin();
   }
 
   render() {
-    const { classes } = this.props;
-    const { value } = this.state.value;
-
+    const { classes } = this.props
     return (
       <Grid container spacing={24}>
         <Grid item xs={12}>
           <AppBar>
-            <Tabs value={value} onChange={this.handleNavChange}>
-              <Tab value="account" label="Home" />
-              <Tab value="user" label="User Profiles" />
+            <Tabs>
+              <Link to="/"><ListItem><Tab label="Account" className="largeFont"  ></Tab></ListItem></Link>
+              {this.renderLinks()}
             </Tabs>
           </AppBar>
-
-          {value === "account" && (
-            <TabContainer>
-              <Link to="/"><AccountRegistration renderRoutes={this.renderNavOnLogin}/></Link>
-            </TabContainer>
-          )}
-          {value === "user" && (
-            <TabContainer>
-              <UserRegistration renderRoutes={this.renderNavOnLogin} />
-            </TabContainer>
-          )}
-
         </Grid>
 
         <Grid item xs={12}>
@@ -108,6 +88,10 @@ class Sidebar extends Component {
       </Grid>
     );
   }
+}
+
+Sidebar.propTypes = {
+  classes: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(Sidebar);
