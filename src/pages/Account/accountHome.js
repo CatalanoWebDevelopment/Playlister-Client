@@ -3,6 +3,7 @@ import "../../styles/Styles.css";
 import Grid from "@material-ui/core/Grid";
 import Login from "./accountLogin";
 import Register from "./accountRegister";
+import Management from "./accountManagement";
 
 export default class AccountHome extends Component {
     constructor(props) {
@@ -26,6 +27,22 @@ export default class AccountHome extends Component {
             isLoginOpen: false,
             isRegisterOpen: true
         })
+    }
+
+    renderAccountManagement = () => {
+        if (localStorage.getItem('SessionToken') !== undefined) {
+            return (
+                <React.Fragment>
+                    <Management />
+                </React.Fragment>
+            )
+        }
+
+        return
+    }
+
+    componentDidMount() {
+        this.renderAccountManagement()
     }
 
     render() {
