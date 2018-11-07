@@ -69,7 +69,7 @@ class SignIn extends React.Component {
         let password = this.state.password;
         let accountData = { name, password }
     
-        fetch('http://localhost:3000/account/login', {
+        fetch('http://localhost:3000/account/register', {
             method: "post",
             headers: {
                 "Content-Type": "application/json"

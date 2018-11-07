@@ -7,6 +7,10 @@ a {
     padding: 2px;
 }
 
+.centered {
+    text-align: center !important;
+}
+
 .buttonController {
     display: flex;
     border-radius: 10em;

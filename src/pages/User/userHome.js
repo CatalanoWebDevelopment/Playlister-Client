@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "../../styles/Styles.css";
 import Grid from "@material-ui/core/Grid";
-import Login from "./accountLogin";
-import Register from "./accountRegister";
+import Login from "./userLogin";
+import Register from "./userRegister";
 
-export default class AccountHome extends Component {
+export default class UserHome extends Component {
     constructor(props) {
         super(props);
 

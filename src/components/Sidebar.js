@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import AccountHome from "../pages/Account/accountHome";
-import UserRegistration from "../pages/User/userRegistration";
+import UserHome from "../pages/User/userHome";
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
 import { Route, Link, Switch } from "react-router-dom";
@@ -55,7 +55,10 @@ class Sidebar extends Component {
       return (
         <React.Fragment>
           <Link to="/user">
-            <UserRegistration />
+            <ListItem>
+              <Tab label="User Profiles" className="largeFont">
+              </Tab>
+            </ListItem>
           </Link>
         </React.Fragment>
       );
@@ -73,16 +76,18 @@ class Sidebar extends Component {
         <Grid item xs={12}>
           <AppBar>
             <Tabs>
-              <Link to="/"><ListItem><Tab label="Account" className="largeFont"  ></Tab></ListItem></Link>
+              <Link to="/"><ListItem><Tab label="Account" className="largeFont centered"  ></Tab></ListItem></Link>
               {this.renderLinks()}
             </Tabs>
           </AppBar>
         </Grid>
 
+        <br /><br /><br /><br />
+
         <Grid item xs={12}>
           <Switch>
             <Route exact path="/"><AccountHome renderRoutes={this.renderNavOnLogin}/></Route>
-            <Route exact path="/user"><UserRegistration renderRoutes={this.renderNavOnLogin} /></Route>
+            <Route exact path="/user"><UserHome renderRoutes={this.renderNavOnLogin} /></Route>
           </Switch>
         </Grid>
       </Grid>
