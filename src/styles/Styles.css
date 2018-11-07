@@ -6,3 +6,28 @@ a {
     font: 16px Roboto, sans-serif !important;
     padding: 2px;
 }
+
+.buttonController {
+    display: flex;
+    border-radius: 10em;
+    border: 5px solid black;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.control {
+    flex: 1;
+    text-align: center;
+}
+
+.leftActive {
+    background: black;
+    color: white;
+    border-radius: 10em 0 0 10em;
+}
+
+.rightActive {
+    background: black;
+    color: white;
+    border-radius: 0 10em 10em 0;
+}

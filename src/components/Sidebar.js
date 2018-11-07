@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AccountLogin from "../pages/Account/accountLogin";
+import AccountHome from "../pages/Account/accountHome";
 import UserRegistration from "../pages/User/userRegistration";
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
@@ -81,7 +81,7 @@ class Sidebar extends Component {
 
         <Grid item xs={12}>
           <Switch>
-            <Route exact path="/"><AccountLogin renderRoutes={this.renderNavOnLogin}/></Route>
+            <Route exact path="/"><AccountHome renderRoutes={this.renderNavOnLogin}/></Route>
             <Route exact path="/user"><UserRegistration renderRoutes={this.renderNavOnLogin} /></Route>
           </Switch>
         </Grid>
