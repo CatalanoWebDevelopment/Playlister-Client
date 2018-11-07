@@ -10,7 +10,7 @@ export default class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={Theme}>
-        <Grid container spacing={24}>
+        <Grid container spacing={24} className="backgroundPic">
           <Router>
             <Sidebar />
           </Router>

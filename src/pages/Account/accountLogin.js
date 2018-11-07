@@ -50,15 +50,26 @@ const styles = theme => ({
 class SignIn extends React.Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+          accountName: '',
+          password: ''
+        }
+    }
+
+    handleChangeLogin = event => {
+      this.setState({
+        [event.target.name]: event.target.value
+      })
     }
 
     onSubmitLogin = event => {
         event.preventDefault();
-        let password = document.getElementById("password").value
-        let name = document.getElementById("accountName").value
+        let name = this.state.accountName;
+        let password = this.state.password;
         let accountData = { name, password }
     
-        fetch('http://localhost:3000/account/register', {
+        fetch('http://localhost:3000/account/login', {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
@@ -67,7 +78,7 @@ class SignIn extends React.Component {
         })
         .then(response => response.json())
         .then(response => {
-            let token = response.sessionToken
+            let token = response.account.token
             localStorage.setItem('SessionToken', token)
             if (token !== undefined ) {
                 this.props.renderRoutes();
@@ -92,7 +103,8 @@ class SignIn extends React.Component {
                 <form className={classes.form} onSubmit={this.onSubmitLogin}>
                   <FormControl margin="normal" required fullWidth>
                     <InputLabel htmlFor="accountName">Account name</InputLabel>
-                    <Input id="accountName" name="accountName" autoComplete="accountName" autoFocus />
+                    <Input id="accountName" name="accountName" autoComplete="accountName" autoFocus
+                    onChange={this.handleChangeLogin} />
                   </FormControl>
                   
                   <FormControl margin="normal" required fullWidth>
@@ -102,6 +114,7 @@ class SignIn extends React.Component {
                       type="password"
                       id="password"
                       autoComplete="current-password"
+                      onChange={this.handleChangeLogin}
                     />
                   </FormControl>
 
