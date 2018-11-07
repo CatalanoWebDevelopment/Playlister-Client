@@ -131,6 +131,18 @@ class SignIn extends React.Component {
                       Sign in
                     </Button>
                   </form>
+
+                  <br /> 
+
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className="classes.submit"
+                    onClick={this.props.renderLogin}
+                  >
+                    Have An Account? Sign In Now
+                  </Button>
                 </Paper>
               </main>
           </React.Fragment>

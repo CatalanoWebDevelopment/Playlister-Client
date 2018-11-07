@@ -60,6 +60,10 @@ class Sidebar extends Component {
               </Tab>
             </ListItem>
           </Link>
+
+          <ListItem>
+            <Tab label="Logout" className="largeFont" onClick={this.logout} />
+          </ListItem>
         </React.Fragment>
       );
     }
@@ -81,8 +85,6 @@ class Sidebar extends Component {
             </Tabs>
           </AppBar>
         </Grid>
-
-        <br /><br /><br /><br />
 
         <Grid item xs={12}>
           <Switch>
