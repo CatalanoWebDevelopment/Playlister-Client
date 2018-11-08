@@ -26,12 +26,6 @@ export default class AccountManagement extends Component {
         .then(response => response.json())
         .then(response => {
             response.users.map(user => {
-                // return(
-                //     <Grid item xs={4}>
-                //         {console.log(user)}
-                //         <UserCard email={user.email} name={user.name} id={user.id} createdAt={user.createdAt} />
-                //     </Grid>
-                // )
                 this.setState({
                     users: [...this.state.users, user]
                 })
@@ -44,21 +38,18 @@ export default class AccountManagement extends Component {
     }
     
     renderUsers = () => {
-        // console.log(this.state.users.length)
-        // if (this.state.users.length !== 0) {
+        if (this.state.users.length !== 0) {
             return this.state.users.map((user, index) => {
-                console.log(user)
                 return(
                     <div key={index}>
                     <UserCard email={user.email} name={user.name} id={user.id} createdAt={user.createdAt} />
                     </div>
                 )
             })
-        // }
+        }
     }
         
-        render() {
-            // console.log(this.state.users)
+    render() {
         return (
             <Grid container spacing={12}>
                 {this.renderUsers()}
