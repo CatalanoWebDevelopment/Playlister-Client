@@ -10,7 +10,7 @@ export default class UserHome extends Component {
 
         this.state = {
             isLoginOpen: true,
-            isRegisterOpen: false
+            isRegisterOpen: false,
         }
     }
 
@@ -32,15 +32,9 @@ export default class UserHome extends Component {
         return(
             <Grid container spacing={8}>
                 <Grid item xs={12}>
-                    <div className="buttonController">
-                        <div onClick={this.renderLogin} className={'control' + ' ' + (this.state.isLoginOpen === true ? 'leftActive' : '')}>Login</div>
+                    {this.state.isLoginOpen === true && <Login renderRegister={this.renderRegister} />}
 
-                        <div onClick={this.renderRegister} className={'control' + ' ' + (this.state.isRegisterOpen === true ? 'rightActive' : '')}>Register</div>
-                    </div>
-
-                    {this.state.isLoginOpen === true && <Login renderRoutes={this.props.renderRoutes} />}
-
-                    {this.state.isRegisterOpen === true && <Register renderRoutes={this.props.renderRoutes} />}
+                    {this.state.isRegisterOpen === true && <Register renderLogin={this.renderLogin} />}
                 </Grid>
             </Grid>
         )

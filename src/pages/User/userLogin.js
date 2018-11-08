@@ -34,7 +34,7 @@ const styles = theme => ({
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.dark,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -45,53 +45,109 @@ const styles = theme => ({
   },
 });
 
-function SignIn(props) {
-  const { classes } = props;
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <form className={classes.form}>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
-                name="password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign in
-            </Button>
-          </form>
-        </Paper>
-      </main>
-    </React.Fragment>
-  );
-}
+
+class SignIn extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+          userEmail: '',
+          password: ''
+        }
+    }
+
+    handleChangeLogin = event => {
+      this.setState({
+        [event.target.name]: event.target.value
+      })
+    }
+
+    onSubmitLogin = event => {
+        event.preventDefault();
+        let email = this.state.userEmail;
+        let password = this.state.password;
+        let userData = { email, password }
+    
+        fetch('http://localhost:3000/user/login', {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer" + localStorage.getItem('SessionToken')
+            },
+            body: JSON.stringify(userData)
+        })
+        .then(response => response.json())
+        .then(response => {
+            console.log("RESPONSE", response)
+            let token = response.user.token
+            localStorage.setItem('Token', token) 
+        })
+    };
+  
+    render() {
+      const { classes } = this.props;
+      return (
+        <React.Fragment>
+          <CssBaseline />
+            <main className={classes.layout}>
+              <Paper className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                  <LockIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  User Sign-In
+                </Typography>
+                
+                <form className={classes.form} onSubmit={this.onSubmitLogin}>
+                  <FormControl margin="normal" required fullWidth>
+                    <InputLabel htmlFor="userEmail">Email</InputLabel>
+                    <Input id="userEmail" name="userEmail" autoComplete="userEmail" autoFocus
+                    onChange={this.handleChangeLogin} type="email" />
+                  </FormControl>
+                  
+                  <FormControl margin="normal" required fullWidth>
+                    <InputLabel htmlFor="password">Password</InputLabel>
+                    <Input
+                      name="password"
+                      type="password"
+                      id="password"
+                      autoComplete="current-password"
+                      onChange={this.handleChangeLogin}
+                    />
+                  </FormControl>
+
+                  <FormControlLabel control={<Checkbox value="remember" color="primary" />}
+                  label="Remember me"
+                  />
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className={classes.submit}
+                    >
+                      Sign in
+                    </Button>
+                  </form>
+                  
+                  <br />
+
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className="classes.submit"
+                    onClick={this.props.renderRegister}
+                  >
+                    No user? Sign Up Now
+                  </Button>
+                </Paper>
+              </main>
+          </React.Fragment>
+        );
+      }
+  } 
 
 SignIn.propTypes = {
   classes: PropTypes.object.isRequired,
