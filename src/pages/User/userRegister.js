@@ -12,6 +12,7 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import jwt_decode from "jwt-decode"
 
 const styles = theme => ({
   layout: {
@@ -66,10 +67,13 @@ class SignIn extends React.Component {
 
     onSubmitRegister = event => {
         event.preventDefault();
-        let name = this.state.username;
+        let token = localStorage.getItem("SessionToken")
+        let accountId = jwt_decode(token).accountId
+        let name = this.state.name;
         let password = this.state.password;
         let email = this.state.email;
-        let userData = { email, name, password }
+        
+        let userData = { email, name, password, accountId }
     
         fetch('http://localhost:3000/user/register', {
             method: "post",
@@ -133,7 +137,7 @@ class SignIn extends React.Component {
                       color="primary"
                       className={classes.submit}
                     >
-                      Sign in
+                      Register User
                     </Button>
                   </form>
 

@@ -79,7 +79,6 @@ class SignIn extends React.Component {
         })
         .then(response => response.json())
         .then(response => {
-            console.log("RESPONSE", response)
             let token = response.user.token
             localStorage.setItem('Token', token) 
         })
