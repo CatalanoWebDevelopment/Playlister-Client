@@ -42,9 +42,9 @@ export default class AccountHome extends Component {
         return(
             <Grid container spacing={8}>
                 <Grid item xs={12}>
-                    {this.state.isLoginOpen === true && <Login renderRoutes={this.props.renderRoutes} renderRegister={this.renderRegister} renderAccountManagement={this.renderAccountManagement} />}
+                    {this.state.isLoginOpen === true && <Login renderRoutes={this.props.renderRoutes} renderRegister={this.renderRegister} renderAccountManagement={this.renderAccountManagement} setToken={this.props.setToken} />}
 
-                    {this.state.isRegisterOpen === true && <Register renderRoutes={this.props.renderRoutes} renderLogin={this.renderLogin} renderAccountManagement={this.renderAccountManagement} />}
+                    {this.state.isRegisterOpen === true && <Register renderRoutes={this.props.renderRoutes} renderLogin={this.renderLogin} renderAccountManagement={this.renderAccountManagement} setToken={this.props.setToken} />}
 
                     {this.state.isManagementOpen === true && <Management />}
                 </Grid>

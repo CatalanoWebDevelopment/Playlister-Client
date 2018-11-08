@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AccountHome from "../pages/Account/accountHome";
 import UserHome from "../pages/User/userHome";
+import AccountManagement from "../pages/Account/accountManagement"
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
 import { Route, Link, Switch } from "react-router-dom";
@@ -28,20 +29,28 @@ class Sidebar extends Component {
     super(props);
 
     this.state = {
-      showNavigation: false
+      showNavigation: false,
+      token: ''
     };
+  }
+
+  setToken = token => {
+    this.setState({
+      token: token
+    })
   }
 
   logout = () => {
     localStorage.clear();
     this.setState({
       showNavigation: false,
+      token: ''
     });
   };
 
   renderNavOnLogin = () => {
     if (!localStorage.getItem("SessionToken")) {
-      return;
+      return
     }
 
     this.setState({
@@ -53,10 +62,15 @@ class Sidebar extends Component {
     if (this.state.showNavigation) {
       return (
         <React.Fragment>
+          <Link to="/account">
+            <ListItem>
+              <Tab label="Account" className="largeFont" />
+            </ListItem>
+          </Link>
+          
           <Link to="/user">
             <ListItem>
-              <Tab label="User Profiles" className="largeFont">
-              </Tab>
+              <Tab label="User Profiles" className="largeFont" />
             </ListItem>
           </Link>
 
@@ -65,6 +79,23 @@ class Sidebar extends Component {
           </ListItem>
         </React.Fragment>
       );
+    }
+  }
+
+  renderViews = () => {
+    if (this.state.token === localStorage.getItem("SessionToken")) {
+      return (
+        <Switch>
+          <Route exact path="/account"><AccountManagement /></Route>
+          <Route exact path="/user"><UserHome renderRoutes={this.renderNavOnLogin} /></Route>
+        </Switch>
+      )
+    } else {
+      return (
+        <Switch>
+          <Route exact path="/"><AccountHome renderRoutes={this.renderNavOnLogin} setToken={this.setToken} /></Route>
+        </Switch>
+      )
     }
   }
 
@@ -79,17 +110,13 @@ class Sidebar extends Component {
         <Grid item xs={12}>
           <AppBar>
             <Tabs>
-              <Link to="/"><ListItem><Tab label="Account" className="largeFont centered"  ></Tab></ListItem></Link>
               {this.renderLinks()}
             </Tabs>
           </AppBar>
         </Grid>
 
         <Grid item xs={12}>
-          <Switch>
-            <Route exact path="/"><AccountHome renderRoutes={this.renderNavOnLogin} /></Route>
-            <Route exact path="/user"><UserHome renderRoutes={this.renderNavOnLogin} /></Route>
-          </Switch>
+          {this.renderViews()}
         </Grid>
       </Grid>
     );

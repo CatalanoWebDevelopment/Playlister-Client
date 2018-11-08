@@ -84,6 +84,7 @@ class SignIn extends React.Component {
             if (token !== undefined ) {
                 this.props.renderRoutes();
                 this.props.renderAccountManagement();
+                this.props.setToken(token)
             }
         })
     };
