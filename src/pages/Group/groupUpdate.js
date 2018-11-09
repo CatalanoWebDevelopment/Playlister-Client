@@ -9,7 +9,8 @@ export default class GroupUpdate extends Component {
 
         this.state = {
             accountId: '',
-            name: ''
+            name: '',
+            id: ''
         }
     }
 
@@ -22,9 +23,20 @@ export default class GroupUpdate extends Component {
         })
     }
 
-    onSubmitUpdate = event => {
+    onSubmitUpdate = (event, id) => {
         event.preventDefault();
         let name = this.state.name
+        let updatedGroup = { name }
+
+        fetch(`http://localhost:3000/group/${id}`, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("Token")}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedGroup)
+        }).then(response => response.json())
+        .then(this.loadAllGroups())
     }
 
     loadAllGroups = () => {
@@ -38,15 +50,21 @@ export default class GroupUpdate extends Component {
         }).then(response => response.json())
         .then(response => {
             if (response.length !== 0) {
-                return response.group.map(group => {
+                return response.group.map((group, index) => {
                     return (
-                        <Grid item xs={12}>
-                            <form>
+                        <Grid item xs={12} key={index}>
+                            <form onSubmit={(event) => this.updatedGroup(event, index)}>
                                 <FormControl margin="normal" required fullWidth>
                                     <InputLabel htmlFor="name">{group.name}</InputLabel>
 
                                     <Input id="name" name="name" autoFocus onChange={this.handleChange} />
                                 </FormControl>
+
+                                <Button variant="contained"
+                                color="primary"
+                                type="submit">
+                                    Update Group
+                                </Button> 
                             </form>
                         </Grid>
                     )
