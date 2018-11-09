@@ -50,6 +50,7 @@ export default class GroupUpdate extends Component {
         }).then(response => response.json())
         .then(response => {
             if (response.length !== 0) {
+                console.log(response)
                 return response.group.map((group, index) => {
                     return (
                         <Grid item xs={12} key={index}>
