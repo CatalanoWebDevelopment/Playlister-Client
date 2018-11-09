@@ -10,6 +10,7 @@ import { withStyles, AppBar, Tabs } from "@material-ui/core";
 import PropTypes from "prop-types"
 import styled from "styled-components"
 import "../styles/Styles.css"
+import GroupHome from "../pages/Group/groupHome";
 
 const styles = theme => ({
   root: {
@@ -74,6 +75,13 @@ class Sidebar extends Component {
             </ListItem>
           </Link>
 
+          <Link to="/group">
+            <ListItem>
+              <Tab label="Groups"
+              className="largeFont" />
+            </ListItem>
+          </Link>
+
           <ListItem>
             <Tab label="Logout" className="largeFont" onClick={this.logout} />
           </ListItem>
@@ -87,7 +95,10 @@ class Sidebar extends Component {
       return (
         <Switch>
           <Route exact path="/account"><AccountManagement /></Route>
+          
           <Route exact path="/user"><UserHome renderRoutes={this.renderNavOnLogin} /></Route>
+
+          <Route exact path="/group"><GroupHome /></Route>
         </Switch>
       )
     } else {
