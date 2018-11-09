@@ -125,7 +125,7 @@ class SignIn extends React.Component {
                     variant="contained"
                     color="primary"
                     className="classes.submit"
-                    onClick={this.props.renderLogin}
+                    onClick={this.props.renderUpdate}
                   >
                     Need to Edit Your Groups? Click Here
                   </Button>
