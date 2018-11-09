@@ -101,7 +101,7 @@ class SignIn extends React.Component {
                   <LockIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                  Account Registry
+                  User Registry
                 </Typography>
                 
                 <form className={classes.form} onSubmit={this.onSubmitRegister}>
@@ -150,7 +150,7 @@ class SignIn extends React.Component {
                     className="classes.submit"
                     onClick={this.props.renderLogin}
                   >
-                    Have An Account? Sign In Now
+                    Have A Profile? Sign In Now
                   </Button>
                 </Paper>
               </main>

@@ -139,7 +139,7 @@ class SignIn extends React.Component {
                     className="classes.submit"
                     onClick={this.props.renderRegister}
                   >
-                    No user? Sign Up Now
+                    Don't Have a Profile? Sign Up Now
                   </Button>
                 </Paper>
               </main>

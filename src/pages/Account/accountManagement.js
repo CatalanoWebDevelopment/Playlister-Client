@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import jwt_decode from "jwt-decode"
-import { Button } from "@material-ui/core";
 import UserCard from "../User/userCard";
 
 export default class AccountManagement extends Component {
@@ -9,7 +8,8 @@ export default class AccountManagement extends Component {
         super(props);
 
         this.state = {
-            users: []
+            users: [],
+            refresh: false
         }
     }
 
@@ -33,6 +33,18 @@ export default class AccountManagement extends Component {
         })
     }
 
+    refreshPage = () => {
+        if (this.state.refresh === false) {
+            this.setState({
+                refresh: true
+            })
+        } else {
+            this.setState({
+                refresh: false
+            })
+        }
+    }
+
     componentDidMount() {
         this.loadUsers()
     }
@@ -41,9 +53,15 @@ export default class AccountManagement extends Component {
         if (this.state.users.length !== 0) {
             return this.state.users.map((user, index) => {
                 return(
-                    <div key={index}>
-                    <UserCard email={user.email} name={user.name} id={user.id} createdAt={user.createdAt} />
-                    </div>
+                    <Grid Container spacing={12}>
+                    <Grid key={index} item xs={12} className="styledGrid">
+                        <UserCard email={user.email} name={user.name} id={user.id} createdAt={user.createdAt} refresh={this.refreshPage}  />
+                    </Grid>
+
+                        <br />
+                        <br /> 
+
+                    </Grid>
                 )
             })
         }
