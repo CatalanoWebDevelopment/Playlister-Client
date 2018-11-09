@@ -36,7 +36,7 @@ export default class UserCard extends Component {
     handleUpdate = event => {
         event.preventDefault();
 
-        let id = this.props.id
+        let id = this.props.id;
         let name = this.state.name;
         let email = this.state.email;
         let updatedUser = { name, email }
@@ -49,8 +49,21 @@ export default class UserCard extends Component {
             }),
             body: JSON.stringify(updatedUser)
         }).then(response => response.json())
-        .then(window.alert("User Updated"))
+        .then(window.alert(`${name} Updated`))
         .then(this.props.refresh())
+    }
+
+    handleDelete = event => {
+        event.preventDefault();
+        let id = this.props.id;
+
+        fetch(`http://localhost:3000/user/${id}`, {
+            method: "DELETE",
+            headers: new Headers({
+                "Authorization": `Bearer ${localStorage.getItem("SessionToken")}`
+            })
+        }).then(response => response.json())
+        .then(window.alert("User Deleted"))
     }
 
     render() {
@@ -75,7 +88,7 @@ export default class UserCard extends Component {
 
                                     <TextField label="Username" value={this.state.name} name="name" onChange={this.handleOnChange} />
 
-                                    <br />
+                                    <br /><br />
 
                                     <Button variant="contained" color="primary" type="submit"
                                     className="styledButton"
@@ -83,6 +96,12 @@ export default class UserCard extends Component {
                                         Update User
                                     </Button>
                                 </form>
+
+                                <br />
+
+                                <Button variant="contained" color="primary" type="submit" className="styledButton" onClick={this.handleDelete}>
+                                    Delete User
+                                </Button>
                     </Modal>
             </Grid>
         )
