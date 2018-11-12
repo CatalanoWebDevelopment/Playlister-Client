@@ -10,7 +10,8 @@ export default class GroupUpdate extends Component {
         this.state = {
             accountId: '',
             name: '',
-            id: ''
+            id: '',
+            groups: []
         }
     }
 
@@ -36,7 +37,7 @@ export default class GroupUpdate extends Component {
             },
             body: JSON.stringify(updatedGroup)
         }).then(response => response.json())
-        .then(this.loadAllGroups())
+        .then(this.renderGroups())
     }
 
     loadAllGroups = () => {
@@ -49,39 +50,53 @@ export default class GroupUpdate extends Component {
             }
         }).then(response => response.json())
         .then(response => {
-            if (response.length !== 0) {
-                console.log(response)
-                return response.group.map((group, index) => {
-                    return (
-                        <Grid item xs={12} key={index}>
-                            <form onSubmit={(event) => this.updatedGroup(event, index)}>
-                                <FormControl margin="normal" required fullWidth>
-                                    <InputLabel htmlFor="name">{group.name}</InputLabel>
-
-                                    <Input id="name" name="name" autoFocus onChange={this.handleChange} />
-                                </FormControl>
-
-                                <Button variant="contained"
-                                color="primary"
-                                type="submit">
-                                    Update Group
-                                </Button> 
-                            </form>
-                        </Grid>
-                    )
+            console.log(response)
+            console.log(response.group)
+            response.group.map(group => {
+                this.setState({
+                    groups: [...this.state.groups, group]
                 })
-            }
-        })
+            })
+        })      
+    }
+
+    renderGroups = () => {
+        if (this.state.groups.length !== 0) {
+            return this.state.groups.map((group, index) => {
+                return (
+                    <Grid item xs={12} key={index}>
+                        <form onSubmit={(event) => this.updatedGroup(event, index)}>
+                            <FormControl margin="normal" required fullWidth>
+                                <InputLabel htmlFor="name">{group.name}</InputLabel>
+
+                                <Input id="name" name="name" autoFocus onChange={this.handleChange} />
+                            </FormControl>
+
+                            <Button variant="contained"
+                            color="primary"
+                            type="submit">
+                                Update Group
+                            </Button> 
+                        </form>
+                    </Grid>
+                )
+            })
+        }
     }
 
     componentWillMount() {
         this.setAccountId();
     }
 
+    componentDidMount() {
+        this.loadAllGroups();
+    }
+
     render() {
         return(
-            <Grid container spacing={12}>
-                {this.loadAllGroups()}
+            <Grid container>
+                
+                {this.renderGroups()}
             </Grid>
         )
     }
