@@ -24,6 +24,12 @@ export default class GroupUpdate extends Component {
         })
     }
 
+    handleChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
     onSubmitUpdate = (event, id) => {
         event.preventDefault();
         let name = this.state.name
