@@ -37,7 +37,7 @@ export default class GroupUpdate extends Component {
             },
             body: JSON.stringify(updatedGroup)
         }).then(response => response.json())
-        .then(response => console.log(response))
+        .then(window.alert("Group Updated"))
     }
 
     loadAllGroups = () => {
@@ -66,7 +66,7 @@ export default class GroupUpdate extends Component {
         fetch(`http://localhost:3000/group/${id}`, {
             method: "DELETE",
             headers: new Headers({
-                "Authorization": `Bearer ${localStorage.getItem("SessionToken")}`
+                "Authorization": `Bearer ${localStorage.getItem("Token")}`
             })
         }).then(response => response.json())
         .then(window.alert("Group Deleted"))
@@ -78,7 +78,7 @@ export default class GroupUpdate extends Component {
                 let id = group.id
                 return (
                     <Grid item xs={12} key={index}>
-                        <form onSubmit={(event) => this.updatedGroup(event, id)}>
+                        <form onSubmit={(event) => this.onSubmitUpdate(event, id)}>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="name">{group.name}</InputLabel>
 
