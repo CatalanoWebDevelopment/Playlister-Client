@@ -32,12 +32,12 @@ export default class GroupUpdate extends Component {
         fetch(`http://localhost:3000/group/${id}`, {
             method: "PUT",
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem("Token")}`,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("Token")}` 
             },
             body: JSON.stringify(updatedGroup)
         }).then(response => response.json())
-        .then(this.renderGroups())
+        .then(response => console.log(response))
     }
 
     loadAllGroups = () => {
@@ -60,12 +60,25 @@ export default class GroupUpdate extends Component {
         })      
     }
 
+    deleteGroup = (event, id) => {
+        event.preventDefault();
+
+        fetch(`http://localhost:3000/group/${id}`, {
+            method: "DELETE",
+            headers: new Headers({
+                "Authorization": `Bearer ${localStorage.getItem("SessionToken")}`
+            })
+        }).then(response => response.json())
+        .then(window.alert("Group Deleted"))
+    }
+
     renderGroups = () => {
         if (this.state.groups.length !== 0) {
             return this.state.groups.map((group, index) => {
+                let id = group.id
                 return (
                     <Grid item xs={12} key={index}>
-                        <form onSubmit={(event) => this.updatedGroup(event, index)}>
+                        <form onSubmit={(event) => this.updatedGroup(event, id)}>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="name">{group.name}</InputLabel>
 
@@ -78,6 +91,15 @@ export default class GroupUpdate extends Component {
                                 Update Group
                             </Button> 
                         </form>
+
+                        <br />
+
+                        <Button variant="contained"
+                        color="primary"
+                        type="submit"
+                        onClick={(event) => this.deleteGroup(event, id)}>
+                            Delete Group
+                        </Button>
                     </Grid>
                 )
             })
