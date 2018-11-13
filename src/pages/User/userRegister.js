@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import jwt_decode from "jwt-decode"
+import APIURL from "../../helpers/environment"
 
 const styles = theme => ({
   layout: {
@@ -75,7 +76,7 @@ class SignIn extends React.Component {
         
         let userData = { email, name, password, accountId }
     
-        fetch('http://localhost:3000/user/register', {
+        fetch(`${APIURL}/user/register`, {
             method: "post",
             headers: {
                 "Content-Type": "application/json",

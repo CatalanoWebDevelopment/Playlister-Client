@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import jwt_decode from "jwt-decode"
 import UserCard from "../User/userCard";
+import APIURL from "../../helpers/environment"
 
 export default class AccountManagement extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ export default class AccountManagement extends Component {
         let token = localStorage.getItem('SessionToken')
         let accountId = jwt_decode(token).accountId
 
-        fetch(`http://localhost:3000/user/all/${accountId}`, {
+        fetch(`${APIURL}/user/all/${accountId}`, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem('SessionToken')

@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Modal from "react-responsive-modal";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import APIURL from "../../helpers/environment"
 
 export default class UserCard extends Component {
     constructor(props) {
@@ -41,7 +42,7 @@ export default class UserCard extends Component {
         let email = this.state.email;
         let updatedUser = { name, email }
 
-        fetch(`http://localhost:3000/user/${id}`, {
+        fetch(`${APIURL}/user/${id}`, {
             method: "PUT",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -57,7 +58,7 @@ export default class UserCard extends Component {
         event.preventDefault();
         let id = this.props.id;
 
-        fetch(`http://localhost:3000/user/${id}`, {
+        fetch(`${APIURL}/user/${id}`, {
             method: "DELETE",
             headers: new Headers({
                 "Authorization": `Bearer ${localStorage.getItem("SessionToken")}`

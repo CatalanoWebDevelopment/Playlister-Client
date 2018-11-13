@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import jwt_decode from "jwt-decode";
-import Modal from "react-responsive-modal";
 import { Button, FormControl, InputLabel, Input, Grid } from "@material-ui/core";
+import APIURL from "../../helpers/environment"
 
 export default class GroupUpdate extends Component {
     constructor(props) {
@@ -35,7 +35,7 @@ export default class GroupUpdate extends Component {
         let name = this.state.name
         let updatedGroup = { name }
 
-        fetch(`http://localhost:3000/group/${id}`, {
+        fetch(`${APIURL}/group/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export default class GroupUpdate extends Component {
     loadAllGroups = () => {
         let accountId = this.state.accountId
 
-        fetch(`http://localhost:3000/group/all/${accountId}`, {
+        fetch(`${APIURL}/group/all/${accountId}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("Token")}`
@@ -69,7 +69,7 @@ export default class GroupUpdate extends Component {
     deleteGroup = (event, id) => {
         event.preventDefault();
 
-        fetch(`http://localhost:3000/group/${id}`, {
+        fetch(`${APIURL}/group/${id}`, {
             method: "DELETE",
             headers: new Headers({
                 "Authorization": `Bearer ${localStorage.getItem("Token")}`
